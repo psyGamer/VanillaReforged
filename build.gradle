@@ -10,8 +10,8 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle'
 
-group = 'dev.psygamer'
 version = '0.1'
+group = 'dev.psygamer.templetribes'
 archivesBaseName = 'templetribes'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
@@ -96,7 +96,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'templetribes', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'templetribes', '--all',
+                    '--existing', file('src/main/resources/').toString(),
+                    '--existing', file('src/generated/resources/').toString(),
+                    '--output', file('src/generated/resources/')
 
             mods {
                 templetribes {
