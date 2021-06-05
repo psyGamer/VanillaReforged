@@ -1,6 +1,6 @@
-package dev.psygamer.templetribes.setup;
+package dev.psygamer.vanillareforged.setup;
 
-import dev.psygamer.templetribes.TempleTribes;
+import dev.psygamer.vanillareforged.VanillaReforged;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 
 public class BlockRegistry {
 	
-	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, TempleTribes.MODID);
+	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, VanillaReforged.MODID);
 	
 	public static final RegistryObject<Block> SILVER_ORE = BlockRegistry.register("silver_ore", () ->
 			new Block(AbstractBlock.Properties.create(Material.ROCK)

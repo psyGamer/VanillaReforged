@@ -1,6 +1,6 @@
-package dev.psygamer.templetribes.data.client;
+package dev.psygamer.vanillareforged.data.client;
 
-import dev.psygamer.templetribes.TempleTribes;
+import dev.psygamer.vanillareforged.VanillaReforged;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -9,7 +9,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 public class ModItemModelProvider extends ItemModelProvider {
 	
 	public ModItemModelProvider(final DataGenerator generator, final ExistingFileHelper existingFileHelper) {
-		super(generator, TempleTribes.MODID, existingFileHelper);
+		super(generator, VanillaReforged.MODID, existingFileHelper);
 	}
 	
 	@Override

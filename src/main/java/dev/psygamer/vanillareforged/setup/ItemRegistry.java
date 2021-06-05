@@ -1,6 +1,6 @@
-package dev.psygamer.templetribes.setup;
+package dev.psygamer.vanillareforged.setup;
 
-import dev.psygamer.templetribes.TempleTribes;
+import dev.psygamer.vanillareforged.VanillaReforged;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemRegistry {
 	
-	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TempleTribes.MODID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, VanillaReforged.MODID);
 	
 	public static final RegistryObject<Item> SILVER_INGOT = ItemRegistry.ITEMS.register("silver_ingot", () -> new Item(new Item.Properties()
 			.group(ItemGroup.MATERIALS)
