@@ -20,13 +20,13 @@ public class BlockRegistry {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, VanillaReforged.MODID);
 	
 	public static final RegistryObject<Block> SILVER_ORE = BlockRegistry.register("silver_ore", () ->
-			new Block(AbstractBlock.Properties.create(Material.ROCK)
-					.hardnessAndResistance(3, 10)
+			new Block(AbstractBlock.Properties.of(Material.STONE)
+					.strength(3, 10)
 					.sound(SoundType.STONE)
 			));
 	public static final RegistryObject<Block> SILVER_BLOCK = BlockRegistry.register("silver_block", () ->
-			new Block(AbstractBlock.Properties.create(Material.IRON)
-					.hardnessAndResistance(3, 10)
+			new Block(AbstractBlock.Properties.of(Material.STONE)
+					.strength(3, 10)
 					.sound(SoundType.METAL)
 			));
 	
@@ -42,7 +42,7 @@ public class BlockRegistry {
 	private static <T extends Block> RegistryObject<T> register(final String name, final Supplier<T> supplier) {
 		final RegistryObject<T> block = BlockRegistry.registerNoItem(name, supplier);
 		
-		ItemRegistry.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
+		ItemRegistry.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
 		
 		return block;
 	}

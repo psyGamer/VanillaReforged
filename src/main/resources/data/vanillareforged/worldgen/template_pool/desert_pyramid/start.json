@@ -5,7 +5,7 @@
 		{
 			"weight": 100,
 			"element": {
-				"location": "vanillareforged:temple",
+				"location": "vanillareforged:desert_pyramid/temple",
 				"processors": "minecraft:empty",
 				"projection": "rigid",
 				"element_type": "minecraft:single_pool_element"

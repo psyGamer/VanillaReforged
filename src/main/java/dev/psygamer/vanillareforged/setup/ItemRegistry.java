@@ -13,7 +13,7 @@ public class ItemRegistry {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, VanillaReforged.MODID);
 	
 	public static final RegistryObject<Item> SILVER_INGOT = ItemRegistry.ITEMS.register("silver_ingot", () -> new Item(new Item.Properties()
-			.group(ItemGroup.MATERIALS)
+			.tab(ItemGroup.TAB_MATERIALS)
 	));
 	
 	public static void register() {
