@@ -17,15 +17,9 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +27,6 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Mod(VanillaReforged.MODID)
 public class VanillaReforged {
@@ -43,87 +36,53 @@ public class VanillaReforged {
 	public static final Logger LOGGER = LogManager.getLogger();
 	
 	public VanillaReforged() {
-//		BlockRegistry.register();
-//		ItemRegistry.register();
-		
+		// For registration and init stuff.
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-		final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
-		
 		Structures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
-		
-		// Register the setup method for modloading
 		modEventBus.addListener(this::setup);
 		
-		// Register the enqueueIMC method for modloading
-//		modEventBus.addListener(this::enqueueIMC);
-		// Register the processIMC method for modloading
-//		modEventBus.addListener(this::processIMC);
-		// Register the doClientStuff method for modloading
-//		modEventBus.addListener(this::doClientStuff);
+		// For events that happen after initialization. This is probably going to be use a lot.
+		final IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+		forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
 		
-		forgeEventBus.addListener(EventPriority.HIGH, this::onBiomeLoad);
-		forgeEventBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
-		
-		// Register ourselves for server and other game events we are interested in
+		// The comments for BiomeLoadingEvent and StructureSpawnListGatherEvent says to do HIGH for additions.
+		forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
 	}
 	
-	private void setup(final FMLCommonSetupEvent event) {
-		// some preinit code
-//		VanillaReforged.LOGGER.info("HELLO FROM PREINIT");
-//		VanillaReforged.LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-		
+	/**
+	 * Here, setupStructures will be ran after registration of all structures are finished.
+	 * This is important to be done here so that the Deferred Registry has already ran and
+	 * registered/created our structure for us.
+	 * <p>
+	 * Once after that structure instance is made, we then can now do the rest of the setup
+	 * that requires a structure instance such as setting the structure spacing, creating the
+	 * configured structure instance, and more.
+	 */
+	public void setup(final FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			Structures.setupStructures();
 			ConfiguredStructures.registerConfiguredStructures();
 		});
 	}
 	
-	private void doClientStuff(final FMLClientSetupEvent event) {
-		// do something that can only be done on the client
-		VanillaReforged.LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
-	}
 	
-	private void enqueueIMC(final InterModEnqueueEvent event) {
-		// some example code to dispatch IMC to another mod
-		InterModComms.sendTo("templetribes", "helloworld", () -> {
-			VanillaReforged.LOGGER.info("Hello world from the MDK");
-			return "Hello world";
-		});
-	}
-	
-	private void processIMC(final InterModProcessEvent event) {
-		// some example code to receive and process InterModComms from other mods
-		VanillaReforged.LOGGER.info("Got IMC {}", event.getIMCStream().
-				map(m -> m.getMessageSupplier().get()).
-				collect(Collectors.toList()));
-	}
-	
-	// You can use SubscribeEvent and let the Event Bus discover methods to call
-	@SubscribeEvent
-	public void onServerStarting(final FMLServerStartingEvent event) {
-		// do something when the server starts
-		VanillaReforged.LOGGER.info("HELLO from server starting");
-	}
-	
-	public void onBiomeLoad(final BiomeLoadingEvent event) {
-//		event.getGeneration().getStructures().remove(Structure.DESERT_PYRAMID.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-		/*Supplier<?> sup = null;
-		
-		for (final Supplier<StructureFeature<?, ?>> structure : event.getGeneration().getStructures()) {
-			if (structure.get().feature.getRegistryName().toString().equalsIgnoreCase("minecraft:desert_pyramid")) {
-				sup = structure;
-			}
-		}
-		
-		if (sup != null) {
-			event.getGeneration().getStructures().remove(sup);
-		}
-		
-		if (event.getName() != null && (
-				event.getName().toString().equalsIgnoreCase("minecraft:desert") ||
-						event.getName().toString().equalsIgnoreCase("minecraft:desert_hills")
-		)) {
-		}*/
+	/**
+	 * This is the event you will use to add anything to any biome.
+	 * This includes spawns, changing the biome's looks, messing with its surfacebuilders,
+	 * adding carvers, spawning new features... etc
+	 * <p>
+	 * Here, we will use this to add our structure to all biomes.
+	 */
+	public void biomeModification(final BiomeLoadingEvent event) {
+		/*
+		 * Add our structure to all biomes including other modded biomes.
+		 * You can skip or add only to certain biomes based on stuff like biome category,
+		 * temperature, scale, precipitation, mod id, etc. All kinds of options!
+		 *
+		 * You can even use the BiomeDictionary as well! To use BiomeDictionary, do
+		 * RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName()) to get the biome's
+		 * registrykey. Then that can be fed into the dictionary to get the biome's types.
+		 */
 		event.getGeneration().getStructures().add(() -> ConfiguredStructures.CONFIGURED_DESERT_PYRAMID);
 	}
 	
