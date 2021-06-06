@@ -1,0 +1,15 @@
+{
+  "name": "vanillareforged:desert_pyramid/large_room",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 50,
+      "element": {
+        "location": "vanillareforged:desert_pyramid/l1l_sarg",
+        "processors": "minecraft:empty",
+		"projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

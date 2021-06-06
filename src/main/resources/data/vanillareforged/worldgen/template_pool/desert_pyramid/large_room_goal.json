@@ -1,0 +1,24 @@
+{
+  "name": "vanillareforged:desert_pyramid/large_room_goal",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 50,
+      "element": {
+        "location": "vanillareforged:desert_pyramid/l1l_sarg_goal1",
+        "processors": "minecraft:empty",
+		"projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+	{
+		"weight": 50,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/l1l_sarg_goal2",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	  }
+  ]
+}

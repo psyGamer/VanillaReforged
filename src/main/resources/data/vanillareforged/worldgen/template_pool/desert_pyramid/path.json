@@ -1,0 +1,63 @@
+{
+  "name": "vanillareforged:desert_pyramid/path",
+  "fallback": "minecraft:empty",
+  "elements": [
+	{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/temple_bottom_paths_4way",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	},{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/temple_bottom_paths_3way1",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	},{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/temple_bottom_paths_3way2",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	},{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/temple_bottom_paths_3way3",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	},{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/temple_bottom_paths_2way1",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	},{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/temple_bottom_paths_2way2",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	},{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/temple_bottom_paths_2way3",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	}
+  ]
+}

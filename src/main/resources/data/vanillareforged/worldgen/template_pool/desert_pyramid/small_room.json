@@ -1,0 +1,39 @@
+{
+  "name": "vanillareforged:desert_pyramid/small_room",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 10,
+      "element": {
+        "location": "vanillareforged:desert_pyramid/l1s_oase",
+        "processors": "minecraft:empty",
+		"projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/l1s_ship",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	  },{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/l1s_spawner",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	  },{
+		"weight": 10,
+		"element": {
+		  "location": "vanillareforged:desert_pyramid/l1s_thron",
+		  "processors": "minecraft:empty",
+		  "projection": "rigid",
+		  "element_type": "minecraft:single_pool_element"
+		}
+	  }
+  ]
+}
